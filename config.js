@@ -1,2 +1,2 @@
-const boxMarginLeft = 55;
+const divMarginLeft = 55;
 

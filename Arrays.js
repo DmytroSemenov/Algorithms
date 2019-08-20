@@ -1,6 +1,6 @@
-class Arrays {
-    constructor(element, inputArray) {
-        this._element = element;
+class smartArray {
+    constructor(domElement, inputArray) {
+        this._domElement = domElement;
         this._workArray = inputArray;
         this._divElements = [];
         this._initRender();
@@ -10,37 +10,37 @@ class Arrays {
         for (let i = 0; i < this._workArray.length; i++) {
             const div = document.createElement('div');
             div.className = 'box';
-            div.style = `margin-left: ${boxMarginLeft * i}px`;
+            div.style = `margin-left: ${divMarginLeft * i}px`;
             div.dataset.position = i;
             div.innerHTML = this._workArray[i];
-            this._element.append(div);
+            this._domElement.append(div);
             this._divElements.push(div);
         }
     }
 
-    swapElements(firstIndex, secondIndex) {
+    _swapElements(firstIndex, secondIndex) {
         let tempItem = this._workArray[firstIndex];
         this._workArray[firstIndex] = this._workArray[secondIndex];
         this._workArray[secondIndex] = tempItem;
-        this.moveElements(firstIndex, secondIndex);
+        this._moveElements(firstIndex, secondIndex);
     }
 
-    moveElements(firstIndex, secondIndex) {
-        let firstElement;
-        let secondElement;
-        this._divElements.forEach(element => {
-            if (element.dataset.position == firstIndex) {
-                firstElement = element;
+    _moveElements(firstIndex, secondIndex) {
+        let firstDomElement;
+        let secondDomElement;
+        this._divElements.forEach(domElement => {
+            if (domElement.dataset.position == firstIndex) {
+                firstDomElement = domElement;
             }
-            if (element.dataset.position == secondIndex) {
-                secondElement = element;
+            if (domElement.dataset.position == secondIndex) {
+                secondDomElement = domElement;
             }
         });
-        firstElement.dataset.position = secondIndex;
-        secondElement.dataset.position = firstIndex;
-        this._divElements.forEach(element => {
-            element.style.marginLeft =
-                +element.dataset.position * boxMarginLeft + 'px';
+        firstDomElement.dataset.position = secondIndex;
+        secondDomElement.dataset.position = firstIndex;
+        this._divElements.forEach(domElement => {
+            domElement.style.marginLeft =
+                +domElement.dataset.position * divMarginLeft + 'px';
         });
     }
 
@@ -48,11 +48,10 @@ class Arrays {
         for (let i = 1; i < this._workArray.length; i++) {
             setTimeout(() => {
                 const currentItem = { value: this._workArray[i], index: i };
-                // this._divElements[i].classList.toggle('box-main');
 
                 for (let j = i - 1; j >= 0; j--) {
                     if (currentItem.value < this._workArray[j]) {
-                        this.swapElements(currentItem.index, j);
+                        this._swapElements(currentItem.index, j);
                         currentItem.index = j;
                     }
                 }
@@ -73,7 +72,7 @@ class Arrays {
             while (startIndex < endIndex) {
                 for (let i = --endIndex; i > startIndex; i--) {
                     if (currentItem.value > this._workArray[i]) {
-                        this.swapElements(currentItem.index, i);
+                        this._swapElements(currentItem.index, i);
                         currentItem.index = i;
                         break;
                     }
@@ -81,7 +80,7 @@ class Arrays {
                 }
                 for (let i = ++startIndex; i < currentItem.index; i++) {
                     if (currentItem.value < this._workArray[i]) {
-                        this.swapElements(currentItem.index, i);
+                        this._swapElements(currentItem.index, i);
                         currentItem.index = i;
                         break;
                     }
@@ -99,7 +98,6 @@ class Arrays {
         }, 1000);
     }
 
-   
     mergeSort(array = this._workArray) {
         const mergedArray = [];
         let middleIndex = Math.trunc(array.length / 2);
@@ -122,8 +120,12 @@ class Arrays {
             }
         }
 
-        if (rightArray.length) mergedArray.push(...rightArray);
-        if (leftArray.length) mergedArray.push(...leftArray);
+        if (rightArray.length) {
+            mergedArray.push(...rightArray);
+        }
+        if (leftArray.length) {
+            mergedArray.push(...leftArray);
+        }
 
         return mergedArray;
     }
