@@ -1,27 +1,27 @@
 class smartArray {
     constructor(domElement, inputArray) {
         this._domElement = domElement;
-        this._workArray = inputArray;
         this._divElements = [];
+        this.content = inputArray;
         this._initRender();
     }
 
     _initRender() {
-        for (let i = 0; i < this._workArray.length; i++) {
+        for (let i = 0; i < this.content.length; i++) {
             const div = document.createElement('div');
             div.className = 'box';
             div.style = `margin-left: ${divMarginLeft * i}px`;
             div.dataset.position = i;
-            div.innerHTML = this._workArray[i];
+            div.innerHTML = this.content[i];
             this._domElement.append(div);
             this._divElements.push(div);
         }
     }
 
     _swapElements(firstIndex, secondIndex) {
-        let tempItem = this._workArray[firstIndex];
-        this._workArray[firstIndex] = this._workArray[secondIndex];
-        this._workArray[secondIndex] = tempItem;
+        let tempItem = this.content[firstIndex];
+        this.content[firstIndex] = this.content[secondIndex];
+        this.content[secondIndex] = tempItem;
         this._moveElements(firstIndex, secondIndex);
     }
 
@@ -36,8 +36,10 @@ class smartArray {
                 secondDomElement = domElement;
             }
         });
+
         firstDomElement.dataset.position = secondIndex;
         secondDomElement.dataset.position = firstIndex;
+
         this._divElements.forEach(domElement => {
             domElement.style.marginLeft =
                 +domElement.dataset.position * divMarginLeft + 'px';
@@ -45,12 +47,12 @@ class smartArray {
     }
 
     sortInsertion() {
-        for (let i = 1; i < this._workArray.length; i++) {
+        for (let i = 1; i < this.content.length; i++) {
             setTimeout(() => {
-                const currentItem = { value: this._workArray[i], index: i };
+                const currentItem = { value: this.content[i], index: i };
 
                 for (let j = i - 1; j >= 0; j--) {
-                    if (currentItem.value < this._workArray[j]) {
+                    if (currentItem.value < this.content[j]) {
                         this._swapElements(currentItem.index, j);
                         currentItem.index = j;
                     }
@@ -59,19 +61,19 @@ class smartArray {
         }
     }
 
-    sortQuick(firstIndex = 0, lastIndex = this._workArray.length) {
+    sortQuick(firstIndex = 0, lastIndex = this.content.length) {
         setTimeout(() => {
             let startIndex = firstIndex;
             let endIndex = lastIndex;
             let currentItem = {
-                value: this._workArray[startIndex],
+                value: this.content[startIndex],
                 index: startIndex
             };
             this._divElements[startIndex].classList.add('box-main');
 
             while (startIndex < endIndex) {
                 for (let i = --endIndex; i > startIndex; i--) {
-                    if (currentItem.value > this._workArray[i]) {
+                    if (currentItem.value > this.content[i]) {
                         this._swapElements(currentItem.index, i);
                         currentItem.index = i;
                         break;
@@ -79,7 +81,7 @@ class smartArray {
                     endIndex = i;
                 }
                 for (let i = ++startIndex; i < currentItem.index; i++) {
-                    if (currentItem.value < this._workArray[i]) {
+                    if (currentItem.value < this.content[i]) {
                         this._swapElements(currentItem.index, i);
                         currentItem.index = i;
                         break;
@@ -98,7 +100,7 @@ class smartArray {
         }, 1000);
     }
 
-    mergeSort(array = this._workArray) {
+    mergeSort(array = this.content) {
         const mergedArray = [];
         let middleIndex = Math.trunc(array.length / 2);
         let leftArray = array.slice(0, middleIndex);

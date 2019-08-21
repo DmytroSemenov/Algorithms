@@ -30,9 +30,9 @@ footer {
 
 .main-box {
     height: 55px;
-    position: relative;
-    width: 550px;
-    /* margin: 0 auto; */
+    /* position: relative; */
+    width: 95%;
+    margin: 0 auto;
 }
 
 .box {
