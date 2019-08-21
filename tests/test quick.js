@@ -2,7 +2,6 @@ describe('Testing quick sort algorithm', function() {
     this.timeout(20000);
     const unsortedArray = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0];
     const expectedArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const ancorDomElement = document.querySelector('.main-box');
     let sortedInsertionArray = [];
 
     before(function(done) {
@@ -15,7 +14,7 @@ describe('Testing quick sort algorithm', function() {
         }, 11000);
     });
 
-    it('sort insertion passed', function() {
+    it('quick sort passed', function() {
         assert.equal(sortedInsertionArray.toString(), expectedArray.toString());
     });
 
