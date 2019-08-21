@@ -1,2 +1,0 @@
-const divMarginLeft = 55;
-
