@@ -8,7 +8,7 @@ function createRandomArray(lengthOfArray) {
     return baseArray.sort(() => Math.random() - 0.5);
 }
 
-document.getElementById('start').addEventListener('click', () => {
+function handleStart() {
     const arrayLength = +document.forms[0].elements.arraySize.value;
     const arrayForSort = createRandomArray(arrayLength);
     const myArray = new smartArray(arrayForSort);
@@ -18,4 +18,8 @@ document.getElementById('start').addEventListener('click', () => {
     console.log(`Input array: ${arrayForSort}`);
     console.log(sortMethod);
     console.log(`Output array: ${myArray[sortMethod]()}`);
-});
+    
+    viewport.visualizeSortProcess(myArray.listOfTurns);
+}
+
+document.getElementById('start').addEventListener('click', handleStart);

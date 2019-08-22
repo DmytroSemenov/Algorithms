@@ -21,30 +21,30 @@ class smartArray {
     }
 
     sortQuick(firstIndex = 0, lastIndex = this._array.length) {
-        let startIndex = firstIndex;
-        let endIndex = lastIndex;
+        let startPassIndex = firstIndex;
+        let endPassIndex = lastIndex;
         let currentItem = {
-            value: this._array[startIndex],
-            index: startIndex
+            value: this._array[firstIndex],
+            index: firstIndex
         };
-        while (startIndex < endIndex) {
-            for (let i = --endIndex; i > startIndex; i--) {
+        while (startPassIndex < endPassIndex) {
+            for (let i = --endPassIndex; i > startPassIndex; i--) {
                 if (currentItem.value > this._array[i]) {
                     this._swapElements(currentItem.index, i);
                     currentItem.index = i;
                     this.listOfTurns.push(this._array.slice());
                     break;
                 }
-                endIndex = i;
+                endPassIndex = i;
             }
-            for (let i = ++startIndex; i < currentItem.index; i++) {
+            for (let i = ++startPassIndex; i < currentItem.index; i++) {
                 if (currentItem.value < this._array[i]) {
                     this._swapElements(currentItem.index, i);
                     currentItem.index = i;
                     this.listOfTurns.push(this._array.slice());
                     break;
                 }
-                startIndex = i;
+                startPassIndex = i;
             }
         }
         if (currentItem.index - firstIndex > 1) {
@@ -78,6 +78,7 @@ class smartArray {
         }
         mergedArray.push(...leftArray, ...rightArray);
 
+        this.listOfTurns.push(mergedArray.slice());
         return mergedArray;
     }
 
