@@ -1,5 +1,6 @@
-class Viewport {
+class Viewport extends EventBus {
     constructor(array) {
+        super();
         this.array = array;
         this._domElement = document.querySelector('.main-box');
         this._divMarginLeft = 55;

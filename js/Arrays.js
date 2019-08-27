@@ -1,5 +1,6 @@
-class smartArray {
+class smartArray extends EventBus {
     constructor(inputArray) {
+        super();
         this._array = inputArray;
         this.listOfTurns = [];
     }
