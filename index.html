@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="./js/Arrays.js" defer></script>
-    <script src="./js/main.js" defer></script>
-    <script src="./js/view.js" defer></script>
+    <script src="./js/EventBus.js" defer></script>
+    <script src="./js/MainController.js" defer></script>
+    <script src="./js/SmartArray.js" defer></script>
+    <script src="./js/View.js" defer></script>
     <script src="./tests/test.js" defer></script>
     <script src="https://unpkg.com/chai/chai.js"></script>
     <script src="https://unpkg.com/mocha/mocha.js"></script>
@@ -22,9 +23,10 @@
             <fieldset>
                 <legend>Choose a sorting algorithm</legend>
                 <label>
-                    <input type="radio" name="chooseAlgo" value="sortInsertion" checked> Insertion sort
-                    <input type="radio" name="chooseAlgo" value="sortQuick"> Quick sort
+                    <input type="radio" name="chooseAlgo" value="insertionSort" checked> Insertion sort
+                    <input type="radio" name="chooseAlgo" value="quickSort"> Quick sort
                     <input type="radio" name="chooseAlgo" value="mergeSort"> Merge sort
+                    <input type="radio" name="chooseAlgo" value="internalSort"> Internal sort
                 </label>
             </fieldset>
             <fieldset name="set">
@@ -32,15 +34,23 @@
                 <input name="arraySize" size="1" value="10">
                 <input id="start" type="button" value="Sort">
             </fieldset>
+            <fieldset>
+                <input id="visualize" type="button" value="Visualize the last sort">
+            </fieldset>
         </form>
     </header>
     <main>
         <div class="main-box"></div>
+        <div class="logs">
+            <div>Input array:</div>
+            <div>Sorting method:</div>
+            <div>Output array:</div>
+        </div>
         <div id="mocha"></div>
     </main>
 
     <footer>
-        <div class="footer-text">Sortign Algorithms</div>
+        <div class="footer-text">Sorting Algorithms</div>
     </footer>
 </body>
 

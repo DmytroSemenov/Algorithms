@@ -11,7 +11,7 @@ header {
 }
 
 form {
-    width: 50%;
+    width: 70%;
     margin: 0 auto;
     text-align: center;
 }
@@ -30,9 +30,18 @@ footer {
 
 .main-box {
     height: 55px;
-    /* position: relative; */
     width: 95%;
+    margin: 0 auto 50px;
+}
+
+.logs {
+    /* height: 6rem; */
+    padding: 1rem;
+    width: 90%;
     margin: 0 auto;
+    background-color: rgb(180, 255, 180);
+    border: 1px solid black;
+    border-radius: 5px;
 }
 
 .box {
@@ -45,8 +54,4 @@ footer {
     border: 1px solid black;
     border-radius: 5px;
     transition: all 0.5s ease-out;
-}
-
-.box-main {
-    background-color: red;
 }

@@ -1,11 +1,15 @@
-class smartArray extends EventBus {
+class SmartArray extends EventBus {
     constructor(inputArray) {
         super();
-        this._array = inputArray;
+        this._array = inputArray || [];
         this.listOfTurns = [];
     }
 
-    sortInsertion() {
+    getArray() {
+        return this._array.slice();
+    }
+
+    insertionSort() {
         for (let i = 1; i < this._array.length; i++) {
             const currentItem = { value: this._array[i], index: i };
 
@@ -21,7 +25,7 @@ class smartArray extends EventBus {
         return this._array;
     }
 
-    sortQuick(firstIndex = 0, lastIndex = this._array.length) {
+    quickSort(firstIndex = 0, lastIndex = this._array.length) {
         let startPassIndex = firstIndex;
         let endPassIndex = lastIndex;
         let currentItem = {
@@ -49,10 +53,10 @@ class smartArray extends EventBus {
             }
         }
         if (currentItem.index - firstIndex > 1) {
-            this.sortQuick(firstIndex, currentItem.index);
+            this.quickSort(firstIndex, currentItem.index);
         }
         if (lastIndex - currentItem.index > 1) {
-            this.sortQuick(currentItem.index + 1, lastIndex);
+            this.quickSort(currentItem.index + 1, lastIndex);
         }
 
         return this._array;
@@ -81,6 +85,20 @@ class smartArray extends EventBus {
 
         this.listOfTurns.push(mergedArray.slice());
         return mergedArray;
+    }
+
+    internalSort() {
+        return this._array.sort((a, b) => a - b);
+    }
+
+    createRandomArray(lengthOfArray) {
+        const baseArray = [];
+        for (let i = 0; i < lengthOfArray; i++) {
+            baseArray.push(i);
+        }
+        baseArray.sort(() => Math.random() - 0.5);
+        this._array = baseArray;
+        this.listOfTurns = [baseArray.slice()];
     }
 
     _swapElements(indexA, indexB) {
