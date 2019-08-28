@@ -1,7 +1,7 @@
 class View extends EventBus {
     constructor() {
         super();
-        this._array = [];
+        // this._array = [];
         this._domElement = document.querySelector('.main-box');
         this._divMarginLeft = 55;
         this._divElements = [];
@@ -31,14 +31,14 @@ class View extends EventBus {
         });
     }
 
-    _initRender() {
+    _initRender(initArray) {
         this._domElement.innerHTML = '';
-        for (let i = 0; i < this._array.length; i++) {
+        for (let i = 0; i < initArray.length; i++) {
             const div = document.createElement('div');
             div.className = 'box';
             div.style = `margin-left: ${this._divMarginLeft * i}px`;
             div.dataset.position = i;
-            div.innerHTML = this._array[i];
+            div.innerHTML = initArray[i];
             this._domElement.append(div);
             this._divElements.push(div);
         }

@@ -21,8 +21,8 @@ class MainController extends EventBus {
 
         this._viewModel.setEventListener('visualize', () => {
             if (this._arrayModel.listOfTurns.length > 2) {
-                this._viewModel._array = this._arrayModel.listOfTurns[0];
-                this._viewModel._initRender();
+                // this._viewModel._array = this._arrayModel.listOfTurns[0];
+                this._viewModel._initRender(this._arrayModel.listOfTurns[0]);
                 this._viewModel.visualizeSortProcess(
                     this._arrayModel.listOfTurns
                 );
