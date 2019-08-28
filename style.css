@@ -28,6 +28,10 @@ footer {
     height: 100px;
 }
 
+input {
+    margin-left: 10px;
+}
+
 .main-box {
     height: 55px;
     width: 95%;

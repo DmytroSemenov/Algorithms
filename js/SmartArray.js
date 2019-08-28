@@ -9,6 +9,11 @@ class SmartArray extends EventBus {
         return this._array.slice();
     }
 
+    setArray(arr) {
+        this._array = arr.slice();
+        this.listOfTurns = [];
+    }
+
     insertionSort() {
         for (let i = 1; i < this._array.length; i++) {
             const currentItem = { value: this._array[i], index: i };
@@ -99,6 +104,7 @@ class SmartArray extends EventBus {
         baseArray.sort(() => Math.random() - 0.5);
         this._array = baseArray;
         this.listOfTurns = [baseArray.slice()];
+        return baseArray.slice();
     }
 
     _swapElements(indexA, indexB) {
