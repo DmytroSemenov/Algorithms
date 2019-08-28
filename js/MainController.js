@@ -21,17 +21,22 @@ class MainController extends EventBus {
 
         this._viewModel.setEventListener('visualize', () => {
             if (this._arrayModel.listOfTurns.length > 2) {
-                // this._viewModel._array = this._arrayModel.listOfTurns[0];
                 this._viewModel._initRender(this._arrayModel.listOfTurns[0]);
                 this._viewModel.visualizeSortProcess(
                     this._arrayModel.listOfTurns
+                );
+            } else {
+                this._viewModel.showInfo(
+                    'Use visualize after sort!!!',
+                    'alert'
                 );
             }
         });
 
         this._viewModel.setEventListener('testSpeed', testArrayLength => {
-            const result = this._testSpeeds(testArrayLength);
-            this._viewModel.showSpeedTestResults(result, testArrayLength);
+            const testRes = this._testSpeeds(testArrayLength);
+            this._viewModel.showSpeedTestResults(testRes, testArrayLength);
+            this._viewModel.showInfo('Speed test complited');
         });
     }
 

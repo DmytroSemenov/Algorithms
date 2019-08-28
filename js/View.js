@@ -9,11 +9,13 @@ class View extends EventBus {
         document.getElementById('start').addEventListener('click', () => {
             clearInterval(this._timerId);
             const arrayLength = +document.forms[0].elements.arraySize.value;
-            if (arrayLength > 2 && arrayLength < 100) {
+            if (arrayLength > 2 && arrayLength < 51) {
                 const sortMethod = document.forms[0].elements.chooseAlgo.value;
+                this.showInfo('Sorted');
                 this.emitEvent('start', { arrayLength, sortMethod });
             } else {
-                console.log(`wrong size of array (2-100) != ${arrayLength}`);
+                const info = `wrong size of array ( ${arrayLength} )! It should be between ( 2-51 )`;
+                this.showInfo(info, 'alert');
             }
         });
 
@@ -24,9 +26,11 @@ class View extends EventBus {
 
         document.getElementById('testspeed').addEventListener('click', () => {
             clearInterval(this._timerId);
-            const testArrayLength = +document.forms[0].elements.arraySizeTest
-                .value;
-            this.emitEvent('testSpeed', testArrayLength);
+            this.showInfo('Speed test in progress...', 'alert');
+            const testArrayLength = +document.forms[0].elements.arraySizeTest.value;
+            setTimeout(() => {
+                this.emitEvent('testSpeed', testArrayLength);
+            }, 10);
         });
     }
 
@@ -44,6 +48,7 @@ class View extends EventBus {
     }
 
     visualizeSortProcess(listOfTurns) {
+        this.showInfo('Visualization started');
         clearInterval(this._timerId);
         this._timerId = setInterval(() => {
             let turn = listOfTurns.shift();
@@ -62,7 +67,7 @@ class View extends EventBus {
             });
             if (!listOfTurns.length) {
                 clearInterval(this._timerId);
-                console.log('Visualization completed');
+                this.showInfo(`Visualization finished`);
             }
         }, 1000);
     }
@@ -85,5 +90,15 @@ class View extends EventBus {
             )
             .join('');
         document.querySelector('.logs').innerHTML = inputString + resultString;
+    }
+
+    showInfo(info, isAlert) {
+        const infoPanel = document.querySelector('.info-panel');
+        infoPanel.innerHTML = info;
+        if (isAlert) {
+            infoPanel.classList.add('info-panel--red');
+        } else {
+            infoPanel.classList.remove('info-panel--red');
+        }
     }
 }
