@@ -29,21 +29,21 @@ class MainController extends EventBus {
             }
         });
 
-        this._viewModel.setEventListener('testSpeed', () => {
-            const result = this._testSpeeds();
-            this._viewModel.showSpeedTestResults(result);
+        this._viewModel.setEventListener('testSpeed', testArrayLength => {
+            const result = this._testSpeeds(testArrayLength);
+            this._viewModel.showSpeedTestResults(result, testArrayLength);
         });
     }
 
-    _testSpeeds() {
-        const sizeOfTestArray = 1000;
+    _testSpeeds(testArrayLength) {
+        this._arrayModel.isTest = true;
         const testedAlgorithms = [
             { name: 'Insertion', funct: 'insertionSort', renderTime: 0 },
             { name: 'Quick', funct: 'quickSort', renderTime: 0 },
             { name: 'Merge', funct: 'mergeSort', renderTime: 0 },
             { name: 'Internal', funct: 'internalSort', renderTime: 0 }
         ];
-        const testArray = this._arrayModel.createRandomArray(sizeOfTestArray);
+        const testArray = this._arrayModel.createRandomArray(testArrayLength);
         testedAlgorithms.forEach(algo => {
             this._arrayModel.setArray(testArray);
             const startTime = Date.now();
@@ -51,6 +51,7 @@ class MainController extends EventBus {
             const finishTime = Date.now();
             algo.renderTime = finishTime - startTime;
         });
+        this._arrayModel.isTest = false;
         return testedAlgorithms;
     }
 }

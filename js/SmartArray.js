@@ -3,6 +3,7 @@ class SmartArray extends EventBus {
         super();
         this._array = inputArray || [];
         this.listOfTurns = [];
+        this.isTest = false;
     }
 
     getArray() {
@@ -22,7 +23,9 @@ class SmartArray extends EventBus {
                 if (currentItem.value < this._array[j]) {
                     this._swapElements(currentItem.index, j);
                     currentItem.index = j;
-                    this.listOfTurns.push(this._array.slice());
+                    if (!this.isTest) {
+                        this.listOfTurns.push(this._array.slice());
+                    }
                 }
             }
         }
@@ -42,7 +45,9 @@ class SmartArray extends EventBus {
                 if (currentItem.value > this._array[i]) {
                     this._swapElements(currentItem.index, i);
                     currentItem.index = i;
-                    this.listOfTurns.push(this._array.slice());
+                    if (!this.isTest) {
+                        this.listOfTurns.push(this._array.slice());
+                    }
                     break;
                 }
                 endPassIndex = i;
@@ -51,7 +56,9 @@ class SmartArray extends EventBus {
                 if (currentItem.value < this._array[i]) {
                     this._swapElements(currentItem.index, i);
                     currentItem.index = i;
-                    this.listOfTurns.push(this._array.slice());
+                    if (!this.isTest) {
+                        this.listOfTurns.push(this._array.slice());
+                    }
                     break;
                 }
                 startPassIndex = i;
@@ -88,7 +95,9 @@ class SmartArray extends EventBus {
         }
         mergedArray.push(...leftArray, ...rightArray);
 
-        this.listOfTurns.push(mergedArray.slice());
+        if (!this.isTest) {
+            this.listOfTurns.push(this._array.slice());
+        }
         return mergedArray;
     }
 

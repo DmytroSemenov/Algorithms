@@ -10,11 +10,12 @@ class View extends EventBus {
         document.getElementById('start').addEventListener('click', () => {
             clearInterval(this._timerId);
             const arrayLength = +document.forms[0].elements.arraySize.value;
-            if (arrayLength < 2 || arrayLength > 100) {
-                return;
+            if (arrayLength > 2 && arrayLength < 100) {
+                const sortMethod = document.forms[0].elements.chooseAlgo.value;
+                this.emitEvent('start', { arrayLength, sortMethod });
+            } else {
+                console.log(`wrong size of array (2-100) != ${arrayLength}`);
             }
-            const sortMethod = document.forms[0].elements.chooseAlgo.value;
-            this.emitEvent('start', { arrayLength, sortMethod });
         });
 
         document.getElementById('visualize').addEventListener('click', () => {
@@ -24,7 +25,9 @@ class View extends EventBus {
 
         document.getElementById('testspeed').addEventListener('click', () => {
             clearInterval(this._timerId);
-            this.emitEvent('testSpeed');
+            const testArrayLength = +document.forms[0].elements.arraySizeTest
+                .value;
+            this.emitEvent('testSpeed', testArrayLength);
         });
     }
 
@@ -74,12 +77,14 @@ class View extends EventBus {
         `;
     }
 
-    showSpeedTestResults(resultOfTests) {
-        document.querySelector('.logs').innerHTML = resultOfTests
+    showSpeedTestResults(resultOfTests, testArrayLength) {
+        const inputString = `Test array length: ${testArrayLength}`;
+        const resultString = resultOfTests
             .map(
                 algo =>
                     `<div>Sorting method: ${algo.name}. Render time: ${algo.renderTime}ms</div>`
             )
             .join('');
+        document.querySelector('.logs').innerHTML = inputString + resultString;
     }
 }
