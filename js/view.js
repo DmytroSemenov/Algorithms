@@ -2,7 +2,6 @@ class View extends EventBus {
     constructor() {
         super();
         this._domElement = document.querySelector('.main-box');
-        // this._array = [];
         this._divMarginLeft = 55;
         this._divElements = [];
         this._timerId = null;
