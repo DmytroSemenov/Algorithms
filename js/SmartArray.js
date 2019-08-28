@@ -96,7 +96,7 @@ class SmartArray extends EventBus {
         mergedArray.push(...leftArray, ...rightArray);
 
         if (!this.isTest) {
-            this.listOfTurns.push(this._array.slice());
+            this.listOfTurns.push(mergedArray.slice());
         }
         return mergedArray;
     }
