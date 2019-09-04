@@ -1,5 +1,8 @@
-import EventBus from './EventBus';
-export default class MainController extends EventBus {
+"use strict";
+// import EventBus from './EventBus';
+// import SmartArray from './SmartArray';
+// import View from './View';
+class MainController extends EventBus {
     constructor(arrayModel, viewModel) {
         super();
         this.arrayModel = arrayModel;

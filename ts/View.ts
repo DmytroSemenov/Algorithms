@@ -1,11 +1,6 @@
-import EventBus from './EventBus';
+// import EventBus from './EventBus';
 
-interface FormElements extends HTMLFormElement {
-    day: HTMLInputElement;
-    month: HTMLInputElement;
-    year: HTMLInputElement;
-}
-export default class View extends EventBus {
+class View extends EventBus {
     private divMarginLeft: number = 55;
     private divElements: HTMLDivElement[] = [];
     private timerId: number | undefined = undefined;
@@ -19,9 +14,11 @@ export default class View extends EventBus {
             startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 const arrayLength = +document.forms[0].elements.arraySize.value;
+                // const arrayLength = 16;
                 if (arrayLength > 2 && arrayLength < 51) {
                     const sortMethod =
                         document.forms[0].elements.chooseAlgo.value;
+                    // const sortMethod = 'quickSort';
                     this.showInfo('Sorted', false);
                     this.emitEvent('start', { arrayLength, sortMethod });
                 } else {
@@ -47,7 +44,7 @@ export default class View extends EventBus {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
                 const testArrayLength: number = +document.forms[0].elements
-                    .arraySizeTest.value;
+                // const testArrayLength: number = 30000;
                 setTimeout(() => {
                     this.emitEvent('testSpeed', testArrayLength);
                 }, 10);

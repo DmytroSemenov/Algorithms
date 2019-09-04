@@ -1,6 +1,6 @@
-import EventBus from './EventBus';
+// import EventBus from './EventBus';
 
-export default class SmartArray extends EventBus {
+class SmartArray extends EventBus {
     private array: number[] = [];
     listOfTurns: number[][] = [];
     isTest: any = false;

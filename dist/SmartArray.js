@@ -1,5 +1,6 @@
-import EventBus from './EventBus';
-export default class SmartArray extends EventBus {
+"use strict";
+// import EventBus from './EventBus';
+class SmartArray extends EventBus {
     constructor() {
         super();
         this.array = [];

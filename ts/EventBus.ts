@@ -1,4 +1,4 @@
-export default class EventBus {
+class EventBus {
     private callbacksList: { [key: string]: any } = {};
     constructor() {}
 

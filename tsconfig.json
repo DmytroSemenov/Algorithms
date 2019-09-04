@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     // "module": "commonjs",
-    "module": "es2015",
-    "strict": false,
+    "module": "es6",
+    "strict": true,
     "outDir": "dist",
     "esModuleInterop": true
   }

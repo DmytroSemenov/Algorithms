@@ -1,4 +1,5 @@
-export default class EventBus {
+"use strict";
+class EventBus {
     constructor() {
         this.callbacksList = {};
     }
