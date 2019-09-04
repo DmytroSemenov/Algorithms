@@ -1,63 +1,66 @@
-class SmartArray extends EventBus {
+import EventBus from './EventBus';
+
+export default class SmartArray extends EventBus {
+    private array: number[] = [];
+    listOfTurns: number[][] = [];
+    isTest: any = false;
+    [key: string]: any;
     constructor() {
         super();
-        this._array = [];
-        this.listOfTurns = [];
-        this.isTest = false;
     }
 
     getArray() {
-        return this._array.slice();
+        return this.array.slice();
     }
 
-    setArray(arr) {
-        this._array = arr.slice();
+    setArray(arr: number[]) {
+        this.array = arr.slice();
         this.listOfTurns = [];
     }
 
     insertionSort() {
-        for (let i = 1; i < this._array.length; i++) {
-            const currentItem = { value: this._array[i], index: i };
+        for (let i = 1; i < this.array.length; i++) {
+            const currentItem = { value: this.array[i], index: i };
 
             for (let j = i - 1; j >= 0; j--) {
-                if (currentItem.value < this._array[j]) {
+                if (currentItem.value < this.array[j]) {
                     this._swapElements(currentItem.index, j);
                     currentItem.index = j;
                     if (!this.isTest) {
-                        this.listOfTurns.push(this._array.slice());
+                        this.listOfTurns.push(this.array.slice());
                     }
                 }
             }
         }
 
-        return this._array;
+        return this.array;
     }
 
-    quickSort(firstIndex = 0, lastIndex = this._array.length) {
+    quickSort(firstIndex = 0, lastIndex = this.array.length) {
         let startPassIndex = firstIndex;
         let endPassIndex = lastIndex;
         let currentItem = {
-            value: this._array[firstIndex],
+            value: this.array[firstIndex],
             index: firstIndex
         };
         while (startPassIndex < endPassIndex) {
             for (let i = --endPassIndex; i > startPassIndex; i--) {
-                if (currentItem.value > this._array[i]) {
+                if (currentItem.value > this.array[i]) {
                     this._swapElements(currentItem.index, i);
                     currentItem.index = i;
                     if (!this.isTest) {
-                        this.listOfTurns.push(this._array.slice());
+                        this.listOfTurns.push(this.array.slice());
                     }
                     break;
                 }
                 endPassIndex = i;
             }
             for (let i = ++startPassIndex; i < currentItem.index; i++) {
-                if (currentItem.value < this._array[i]) {
+                if (currentItem.value < this.array[i]) {
                     this._swapElements(currentItem.index, i);
                     currentItem.index = i;
                     if (!this.isTest) {
-                        this.listOfTurns.push(this._array.slice());
+                        this.listOfTurns.push(this.array.slice());
                     }
                     break;
                 }
@@ -71,14 +74,14 @@ class SmartArray extends EventBus {
             this.quickSort(currentItem.index + 1, lastIndex);
         }
 
-        return this._array;
+        return this.array;
     }
 
-    mergeSort(array = this._array) {
-        const mergedArray = [];
-        let middleIndex = Math.trunc(array.length / 2);
-        let leftArray = array.slice(0, middleIndex);
-        let rightArray = array.slice(middleIndex, array.length);
+    mergeSort(array = this.array) {
+        const mergedArray: number[] = [];
+        let middleIndex: number = Math.trunc(array.length / 2);
+        let leftArray: number[] = array.slice(0, middleIndex);
+        let rightArray: number[] = array.slice(middleIndex, array.length);
 
         if (leftArray.length > 1) {
             leftArray = this.mergeSort(leftArray);
@@ -88,9 +91,11 @@ class SmartArray extends EventBus {
         }
         while (rightArray.length && leftArray.length) {
             if (rightArray[0] < leftArray[0]) {
-                mergedArray.push(rightArray.shift());
+                const tempElement: number | undefined = rightArray.shift();
+                if (tempElement) mergedArray.push(tempElement);
             } else {
-                mergedArray.push(leftArray.shift());
+                const tempElement: number | undefined = leftArray.shift();
+                if (tempElement) mergedArray.push(tempElement);
             }
         }
         mergedArray.push(...leftArray, ...rightArray);
@@ -102,23 +107,23 @@ class SmartArray extends EventBus {
     }
 
     internalSort() {
-        return this._array.sort((a, b) => a - b);
+        return this.array.sort((a, b) => a - b);
     }
 
-    createRandomArray(lengthOfArray) {
-        const baseArray = [];
+    createRandomArray(lengthOfArray: number) {
+        const baseArray: number[] = [];
         for (let i = 0; i < lengthOfArray; i++) {
             baseArray.push(i);
         }
         baseArray.sort(() => Math.random() - 0.5);
-        this._array = baseArray;
+        this.array = baseArray;
         this.listOfTurns = [baseArray.slice()];
         return baseArray.slice();
     }
 
-    _swapElements(indexA, indexB) {
-        let tempItem = this._array[indexA];
-        this._array[indexA] = this._array[indexB];
-        this._array[indexB] = tempItem;
+    _swapElements(indexA: number, indexB: number) {
+        let tempItem = this.array[indexA];
+        this.array[indexA] = this.array[indexB];
+        this.array[indexB] = tempItem;
     }
 }

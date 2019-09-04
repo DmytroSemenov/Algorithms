@@ -5,11 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="./js/EventBus.js" defer></script>
-    <script src="./js/MainController.js" defer></script>
-    <script src="./js/SmartArray.js" defer></script>
-    <script src="./js/View.js" defer></script>
-    <script src="./js/Init.js" defer></script>
+    <script src="dist/app.js" defer></script>
     <script src="./tests/test.js" defer></script>
     <script src="https://unpkg.com/chai/chai.js"></script>
     <script src="https://unpkg.com/mocha/mocha.js"></script>
@@ -32,7 +28,7 @@
             </fieldset>
             <fieldset name="set">
                 <legend>Array Size (2-50)</legend>
-                <input name="arraySize" size="1" value="16">
+                <input id="arraySize" name="arraySize" size="1" value="16">
                 <input id="start" type="button" value="Sort">
                 <input id="visualize" type="button" value="Visualize the last sort">
             </fieldset>

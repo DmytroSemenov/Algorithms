@@ -1,21 +1,28 @@
 {
   "name": "algorithms",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "Sorting algorythms with TypeScript",
+  "main": "app.js",
   "dependencies": {
     "chai": "^4.2.0"
   },
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "awesome-typescript-loader": "3.4.1",
+    "typescript": "3.6.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "2.9.7"
   },
   "scripts": {
+    "start": "webpack-dev-server",
     "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DmytroSemenov/Algorithms.git"
   },
+  "keywords": [
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
