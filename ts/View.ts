@@ -44,6 +44,7 @@ class View extends EventBus {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
                 const testArrayLength: number = +document.forms[0].elements
+                    .arraySizeTest.value;
                 // const testArrayLength: number = 30000;
                 setTimeout(() => {
                     this.emitEvent('testSpeed', testArrayLength);
