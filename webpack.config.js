@@ -1,8 +1,9 @@
 module.exports = {
-    entry: "./ts/Init.ts",
+    entry: './ts/Init.ts',
     output: {
-        filename: "app.js",
-        path: __dirname + "./dist"
+        filename: './dist/app.js',
+        // path: __dirname + "./dist"
+        // library: 'myApp'
     },
     resolve: {
         extensions: ['.ts', '.js']

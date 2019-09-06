@@ -1,4 +1,4 @@
-import EventBus from './EventBus.js';
+import EventBus from './EventBus';
 export default class View extends EventBus {
     constructor() {
         super();

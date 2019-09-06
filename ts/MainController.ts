@@ -1,6 +1,6 @@
-import EventBus from './EventBus.js';
-import SmartArray from './SmartArray.js';
-import View from './View.js';
+import EventBus from './EventBus';
+import SmartArray from './SmartArray';
+import View from './View';
 
 export default class MainController extends EventBus {
     private arrayModel: SmartArray;

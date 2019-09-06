@@ -1,7 +1,7 @@
-import SmartArray from './SmartArray.js';
-import View from './View.js';
-import ViewMobile from './ViewMobile.js';
-import MainController from './MainController.js';
+import SmartArray from './SmartArray';
+import View from './View';
+import ViewMobile from './ViewMobile';
+import MainController from './MainController';
 window.addEventListener('load', () => {
     const myArray = new SmartArray();
     let viewport: any;

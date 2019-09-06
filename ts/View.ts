@@ -1,9 +1,9 @@
-import EventBus from './EventBus.js';
-interface FormsProperty extends HTMLFormControlsCollection {
-    arraySize: any;
-    chooseAlgo: any;
-    arraySizeTest: any;
-}
+import EventBus from './EventBus';
+// interface FormsProperty extends HTMLFormControlsCollection {
+//     arraySize: any;
+//     chooseAlgo: any;
+//     arraySizeTest: any;
+// }
 
 interface Viewport {
     // divMarginLeft: number;

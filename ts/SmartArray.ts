@@ -1,4 +1,4 @@
-import EventBus from './EventBus.js';
+import EventBus from './EventBus';
 
 export default class SmartArray extends EventBus {
     private array: number[] = [];

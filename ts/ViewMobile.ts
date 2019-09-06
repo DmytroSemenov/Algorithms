@@ -1,4 +1,4 @@
-import EventBus from './EventBus.js';
+import EventBus from './EventBus';
 
 export default class ViewMobile extends EventBus {
     private timerId: number | undefined = undefined;
