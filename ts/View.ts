@@ -19,11 +19,12 @@ export default class View extends EventBus implements IView {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 // const arrayLength = +document.forms[0].elements.arraySize.value;
-                let arrayLength: any;
-                if (this.arraySizeInput) {
-                    arrayLength = this.arraySizeInput.getAttribute('value');
-                }
-                if (+arrayLength > 2 && arrayLength < 51) {
+                let arrayL: any = document.forms[0].elements.namedItem(
+                    'arraySize'
+                );
+                let arrayLength = +arrayL.value;
+
+                if (arrayLength > 2 && arrayLength < 51) {
                     let radio: any = document.forms[0].elements.namedItem(
                         'chooseAlgo'
                     );
@@ -48,13 +49,23 @@ export default class View extends EventBus implements IView {
             this.testSpeedButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
-                let testArrayLength: any;
-                if (this.arraySizeTest) {
-                    testArrayLength = this.arraySizeTest.getAttribute('value');
+
+                let arrayLtest: any = document.forms[0].elements.namedItem(
+                    'arraySizeTest'
+                );
+                let testArrayLength = +arrayLtest.value;
+                if (
+                    testArrayLength !== NaN &&
+                    testArrayLength > 1 &&
+                    testArrayLength < 30001
+                ) {
+                    setTimeout(() => {
+                        this.emitEvent('testSpeed', testArrayLength);
+                    }, 10);
+                } else {
+                    this.showInfo('Wrong length of the array', 'alert');
+                    console.log(testArrayLength);
                 }
-                setTimeout(() => {
-                    this.emitEvent('testSpeed', +testArrayLength);
-                }, 10);
             });
         }
     }

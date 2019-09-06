@@ -253,11 +253,6 @@ class SmartArray extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EventBus__ = __webpack_require__(0);
 
-// interface FormsProperty extends HTMLFormControlsCollection {
-//     arraySize: any;
-//     chooseAlgo: any;
-//     arraySizeTest: any;
-// }
 class View extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default */] {
     constructor() {
         super();
@@ -275,13 +270,9 @@ class View extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default */] {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 // const arrayLength = +document.forms[0].elements.arraySize.value;
-                let arrayLength;
-                if (this.arraySizeInput) {
-                    arrayLength = this.arraySizeInput.getAttribute('value');
-                }
-                if (+arrayLength > 2 && arrayLength < 51) {
-                    // const sortMethod =
-                    //     document.forms[0].elements.chooseAlgo.value;
+                let arrayL = document.forms[0].elements.namedItem('arraySize');
+                let arrayLength = +arrayL.value;
+                if (arrayLength > 2 && arrayLength < 51) {
                     let radio = document.forms[0].elements.namedItem('chooseAlgo');
                     const sortMethod = radio.value;
                     this.showInfo('Sorted');
@@ -303,14 +294,10 @@ class View extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default */] {
             this.testSpeedButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
-                let testArrayLength;
-                if (this.arraySizeTest) {
-                    testArrayLength = this.arraySizeTest.getAttribute('value');
-                }
-                // const testArrayLength: number = +document.forms[0].elements
-                //     .arraySizeTest.value;
+                let arrayLtest = document.forms[0].elements.namedItem('arraySizeTest');
+                let testArrayLength = +arrayLtest.value;
                 setTimeout(() => {
-                    this.emitEvent('testSpeed', +testArrayLength);
+                    this.emitEvent('testSpeed', testArrayLength);
                 }, 10);
             });
         }
@@ -412,13 +399,9 @@ class ViewMobile extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default 
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
-                let arrayLength;
-                if (this.arraySizeInput) {
-                    arrayLength = this.arraySizeInput.getAttribute('value');
-                }
+                let arrayL = document.forms[0].elements.namedItem('arraySize');
+                let arrayLength = +arrayL.value;
                 if (+arrayLength > 2 && arrayLength < 51) {
-                    // const sortMethod =
-                    //     document.forms[0].elements.chooseAlgo.value;
                     let radio = document.forms[0].elements.namedItem('chooseAlgo');
                     const sortMethod = radio.value;
                     this.showInfo('Sorted');
@@ -440,10 +423,8 @@ class ViewMobile extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default 
             this.testSpeedButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
-                let testArrayLength;
-                if (this.arraySizeTest) {
-                    testArrayLength = this.arraySizeTest.getAttribute('value');
-                }
+                let arrayLtest = document.forms[0].elements.namedItem('arraySizeTest');
+                let testArrayLength = +arrayLtest.value;
                 setTimeout(() => {
                     this.emitEvent('testSpeed', +testArrayLength);
                 }, 10);
