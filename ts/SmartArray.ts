@@ -1,6 +1,6 @@
-// import EventBus from './EventBus';
+import EventBus from './EventBus.js';
 
-class SmartArray extends EventBus {
+export default class SmartArray extends EventBus {
     private array: number[] = [];
     listOfTurns: number[][] = [];
     isTest: any = false;
@@ -92,10 +92,10 @@ class SmartArray extends EventBus {
         while (rightArray.length && leftArray.length) {
             if (rightArray[0] < leftArray[0]) {
                 const tempElement: number | undefined = rightArray.shift();
-                if (tempElement) mergedArray.push(tempElement);
+                if (tempElement || tempElement === 0) mergedArray.push(tempElement);
             } else {
                 const tempElement: number | undefined = leftArray.shift();
-                if (tempElement) mergedArray.push(tempElement);
+                if (tempElement || tempElement === 0) mergedArray.push(tempElement);
             }
         }
         mergedArray.push(...leftArray, ...rightArray);

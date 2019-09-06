@@ -1,44 +1,16 @@
 import EventBus from './EventBus.js';
-interface FormsProperty extends HTMLFormControlsCollection {
-    arraySize: any;
-    chooseAlgo: any;
-    arraySizeTest: any;
-}
 
-interface Viewport {
-    // divMarginLeft: number;
-    // divElements: HTMLDivElement[];
-    // timerId: number | undefined;
-    // domElement: Element | null;
-    // logsElement: Element | null;
-    // startButton: HTMLElement | null;
-    // visualizeButton: HTMLElement | null;
-    // testSpeedButton: HTMLElement | null;
-
-    initRender(initArray: number[]): void;
-    visualizeSortProcess(listOfTurns: number[][]): void;
-    showResult(
-        startArray: number[],
-        sortMethod: string,
-        resultArray: number[],
-        actionTime: number
-    ): void;
-    showSpeedTestResults(resultOfTests: [], testArrayLength: number): void;
-    showInfo(info: string, isAlert?: any): void;
-}
-
-export default class View extends EventBus implements Viewport {
-    private divMarginLeft: number = 55;
-    private divElements: HTMLDivElement[] = [];
+export default class ViewMobile extends EventBus {
     private timerId: number | undefined = undefined;
-    private domElement = document.querySelector('.main-box');
     private logsElement = document.querySelector('.logs');
     private startButton = document.getElementById('start');
     private visualizeButton = document.getElementById('visualize');
     private testSpeedButton = document.getElementById('testspeed');
+    private infoPanel: Element | null = document.querySelector('.info-panel');
     constructor() {
         super();
-
+        console.log('MOBILE DETECTED');
+        if (this.visualizeButton) this.visualizeButton.remove();
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
@@ -78,45 +50,9 @@ export default class View extends EventBus implements Viewport {
         }
     }
 
-    initRender(initArray: number[]): void {
-        if (this.domElement) {
-            this.domElement.innerHTML = '';
-            for (let i = 0; i < initArray.length; i++) {
-                const div: HTMLDivElement = document.createElement('div');
-                div.className = 'box';
-                div.style.marginLeft = `${this.divMarginLeft * i}px`;
-                div.dataset.position = `${i}`;
-                div.innerHTML = `${initArray[i]}`;
-                this.domElement.append(div);
-                this.divElements.push(div);
-            }
-        }
-    }
+    initRender(initArray: number[]): void {}
 
-    visualizeSortProcess(listOfTurns: number[][]): void {
-        this.showInfo('Visualization started');
-        clearInterval(this.timerId);
-        this.timerId = setInterval(() => {
-            let turn: number[] = listOfTurns.shift() || [];
-            let valueOfElement: any;
-            for (let position = 0; position < turn.length; position++) {
-                valueOfElement = turn[position];
-                for (let i = 0; i < this.divElements.length; i++) {
-                    if (this.divElements[i].innerHTML == valueOfElement) {
-                        this.divElements[i].dataset.position = `${position}`;
-                    }
-                }
-            }
-            this.divElements.forEach((domElement: any) => {
-                let pos: number = +domElement.dataset.position;
-                domElement.style.marginLeft = pos * this.divMarginLeft + 'px';
-            });
-            if (!listOfTurns.length) {
-                clearInterval(this.timerId);
-                this.showInfo(`Visualization finished`);
-            }
-        }, 1000);
-    }
+    visualizeSortProcess(listOfTurns: number[][]): void {}
 
     showResult(
         startArray: number[],
@@ -148,13 +84,13 @@ export default class View extends EventBus implements Viewport {
     }
 
     showInfo(info: string, isAlert?: any) {
-        const infoPanel: Element | null = document.querySelector('.info-panel');
-        if (infoPanel) {
-            infoPanel.innerHTML = info;
+        
+        if (this.infoPanel) {
+            this.infoPanel.innerHTML = info;
             if (isAlert) {
-                infoPanel.classList.add('info-panel--red');
+                this.infoPanel.classList.add('info-panel--red');
             } else {
-                infoPanel.classList.remove('info-panel--red');
+                this.infoPanel.classList.remove('info-panel--red');
             }
         }
     }

@@ -1,6 +1,5 @@
-"use strict";
-// import EventBus from './EventBus';
-class SmartArray extends EventBus {
+import EventBus from './EventBus.js';
+export default class SmartArray extends EventBus {
     constructor() {
         super();
         this.array = [];
@@ -82,12 +81,12 @@ class SmartArray extends EventBus {
         while (rightArray.length && leftArray.length) {
             if (rightArray[0] < leftArray[0]) {
                 const tempElement = rightArray.shift();
-                if (tempElement)
+                if (tempElement || tempElement === 0)
                     mergedArray.push(tempElement);
             }
             else {
                 const tempElement = leftArray.shift();
-                if (tempElement)
+                if (tempElement || tempElement === 0)
                     mergedArray.push(tempElement);
             }
         }

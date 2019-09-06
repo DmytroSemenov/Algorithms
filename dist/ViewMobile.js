@@ -1,15 +1,16 @@
 import EventBus from './EventBus.js';
-export default class View extends EventBus {
+export default class ViewMobile extends EventBus {
     constructor() {
         super();
-        this.divMarginLeft = 55;
-        this.divElements = [];
         this.timerId = undefined;
-        this.domElement = document.querySelector('.main-box');
         this.logsElement = document.querySelector('.logs');
         this.startButton = document.getElementById('start');
         this.visualizeButton = document.getElementById('visualize');
         this.testSpeedButton = document.getElementById('testspeed');
+        this.infoPanel = document.querySelector('.info-panel');
+        console.log('MOBILE DETECTED');
+        if (this.visualizeButton)
+            this.visualizeButton.remove();
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
@@ -46,44 +47,8 @@ export default class View extends EventBus {
             });
         }
     }
-    initRender(initArray) {
-        if (this.domElement) {
-            this.domElement.innerHTML = '';
-            for (let i = 0; i < initArray.length; i++) {
-                const div = document.createElement('div');
-                div.className = 'box';
-                div.style.marginLeft = `${this.divMarginLeft * i}px`;
-                div.dataset.position = `${i}`;
-                div.innerHTML = `${initArray[i]}`;
-                this.domElement.append(div);
-                this.divElements.push(div);
-            }
-        }
-    }
-    visualizeSortProcess(listOfTurns) {
-        this.showInfo('Visualization started');
-        clearInterval(this.timerId);
-        this.timerId = setInterval(() => {
-            let turn = listOfTurns.shift() || [];
-            let valueOfElement;
-            for (let position = 0; position < turn.length; position++) {
-                valueOfElement = turn[position];
-                for (let i = 0; i < this.divElements.length; i++) {
-                    if (this.divElements[i].innerHTML == valueOfElement) {
-                        this.divElements[i].dataset.position = `${position}`;
-                    }
-                }
-            }
-            this.divElements.forEach((domElement) => {
-                let pos = +domElement.dataset.position;
-                domElement.style.marginLeft = pos * this.divMarginLeft + 'px';
-            });
-            if (!listOfTurns.length) {
-                clearInterval(this.timerId);
-                this.showInfo(`Visualization finished`);
-            }
-        }, 1000);
-    }
+    initRender(initArray) { }
+    visualizeSortProcess(listOfTurns) { }
     showResult(startArray, sortMethod, resultArray, actionTime) {
         if (this.logsElement) {
             this.logsElement.innerHTML = `
@@ -103,14 +68,13 @@ export default class View extends EventBus {
             this.logsElement.innerHTML = inputString + resultString;
     }
     showInfo(info, isAlert) {
-        const infoPanel = document.querySelector('.info-panel');
-        if (infoPanel) {
-            infoPanel.innerHTML = info;
+        if (this.infoPanel) {
+            this.infoPanel.innerHTML = info;
             if (isAlert) {
-                infoPanel.classList.add('info-panel--red');
+                this.infoPanel.classList.add('info-panel--red');
             }
             else {
-                infoPanel.classList.remove('info-panel--red');
+                this.infoPanel.classList.remove('info-panel--red');
             }
         }
     }
