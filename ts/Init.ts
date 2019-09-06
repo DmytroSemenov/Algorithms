@@ -2,6 +2,8 @@ import SmartArray from './SmartArray';
 import View from './View';
 import ViewMobile from './ViewMobile';
 import MainController from './MainController';
+import IView from './IView';
+
 window.addEventListener('load', () => {
     const myArray = new SmartArray();
     let viewport: any;
@@ -13,7 +15,7 @@ window.addEventListener('load', () => {
             navigator.userAgent.substr(0, 4)
         )
     ) {
-         viewport = new ViewMobile();
+        viewport = new ViewMobile();
     } else viewport = new View();
 
     const mainController = new MainController(myArray, viewport);

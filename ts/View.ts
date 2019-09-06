@@ -1,33 +1,7 @@
 import EventBus from './EventBus';
-// interface FormsProperty extends HTMLFormControlsCollection {
-//     arraySize: any;
-//     chooseAlgo: any;
-//     arraySizeTest: any;
-// }
+import IView from './IView';
 
-interface Viewport {
-    // divMarginLeft: number;
-    // divElements: HTMLDivElement[];
-    // timerId: number | undefined;
-    // domElement: Element | null;
-    // logsElement: Element | null;
-    // startButton: HTMLElement | null;
-    // visualizeButton: HTMLElement | null;
-    // testSpeedButton: HTMLElement | null;
-
-    initRender(initArray: number[]): void;
-    visualizeSortProcess(listOfTurns: number[][]): void;
-    showResult(
-        startArray: number[],
-        sortMethod: string,
-        resultArray: number[],
-        actionTime: number
-    ): void;
-    showSpeedTestResults(resultOfTests: [], testArrayLength: number): void;
-    showInfo(info: string, isAlert?: any): void;
-}
-
-export default class View extends EventBus implements Viewport {
+export default class View extends EventBus implements IView {
     private divMarginLeft: number = 55;
     private divElements: HTMLDivElement[] = [];
     private timerId: number | undefined = undefined;
@@ -36,18 +10,24 @@ export default class View extends EventBus implements Viewport {
     private startButton = document.getElementById('start');
     private visualizeButton = document.getElementById('visualize');
     private testSpeedButton = document.getElementById('testspeed');
+    private arraySizeInput = document.getElementById('arraySize');
+    private arraySizeTest = document.getElementById('arraySizeTest');
     constructor() {
         super();
 
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
-                const arrayLength = +document.forms[0].elements.arraySize.value;
-                // const arrayLength = 16;
-                if (arrayLength > 2 && arrayLength < 51) {
-                    const sortMethod =
-                        document.forms[0].elements.chooseAlgo.value;
-                    // const sortMethod = 'quickSort';
+                // const arrayLength = +document.forms[0].elements.arraySize.value;
+                let arrayLength: any;
+                if (this.arraySizeInput) {
+                    arrayLength = this.arraySizeInput.getAttribute('value');
+                }
+                if (+arrayLength > 2 && arrayLength < 51) {
+                    let radio: any = document.forms[0].elements.namedItem(
+                        'chooseAlgo'
+                    );
+                    const sortMethod = radio.value;
                     this.showInfo('Sorted');
                     this.emitEvent('start', { arrayLength, sortMethod });
                 } else {
@@ -68,11 +48,12 @@ export default class View extends EventBus implements Viewport {
             this.testSpeedButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
-                const testArrayLength: number = +document.forms[0].elements
-                    .arraySizeTest.value;
-                // const testArrayLength: number = 30000;
+                let testArrayLength: any;
+                if (this.arraySizeTest) {
+                    testArrayLength = this.arraySizeTest.getAttribute('value');
+                }
                 setTimeout(() => {
-                    this.emitEvent('testSpeed', testArrayLength);
+                    this.emitEvent('testSpeed', +testArrayLength);
                 }, 10);
             });
         }

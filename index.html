@@ -24,12 +24,11 @@
         <form name="dimensions">
             <fieldset>
                 <legend>Choose a sorting algorithm</legend>
-                <label>
-                    <input type="radio" name="chooseAlgo" value="insertionSort" checked> Insertion sort
-                    <input type="radio" name="chooseAlgo" value="quickSort"> Quick sort
-                    <input type="radio" name="chooseAlgo" value="mergeSort"> Merge sort
-                    <input type="radio" name="chooseAlgo" value="internalSort"> Internal sort
-                </label>
+                <label><input type="radio" name="chooseAlgo" value="insertionSort" checked> Insertion sort</label>
+                <label><input type="radio" name="chooseAlgo" value="quickSort"> Quick sort</label>
+                <label><input type="radio" name="chooseAlgo" value="mergeSort"> Merge sort</label>
+                <label><input type="radio" name="chooseAlgo" value="internalSort"> Internal sort</label>
+
             </fieldset>
             <fieldset name="set">
                 <legend>Array Size (2-50)</legend>
@@ -39,7 +38,7 @@
             </fieldset>
             <fieldset>
                 <span>Array size for testing</span>
-                <input name="arraySizeTest" size="3" value="30000">
+                <input id="arraySizeTest" name="arraySizeTest" size="3" value="30000">
                 <input id="testspeed" type="button" value="Sort Algorithm Speed Test">
             </fieldset>
         </form>

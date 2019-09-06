@@ -1,12 +1,15 @@
 import EventBus from './EventBus';
+import IView from './IView';
 
-export default class ViewMobile extends EventBus {
+export default class ViewMobile extends EventBus implements IView {
     private timerId: number | undefined = undefined;
     private logsElement = document.querySelector('.logs');
     private startButton = document.getElementById('start');
     private visualizeButton = document.getElementById('visualize');
     private testSpeedButton = document.getElementById('testspeed');
     private infoPanel: Element | null = document.querySelector('.info-panel');
+    private arraySizeInput = document.getElementById('arraySize');
+    private arraySizeTest = document.getElementById('arraySizeTest');
     constructor() {
         super();
         console.log('MOBILE DETECTED');
@@ -14,12 +17,15 @@ export default class ViewMobile extends EventBus {
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
-                const arrayLength = +document.forms[0].elements.arraySize.value;
-                // const arrayLength = 16;
-                if (arrayLength > 2 && arrayLength < 51) {
-                    const sortMethod =
-                        document.forms[0].elements.chooseAlgo.value;
-                    // const sortMethod = 'quickSort';
+                let arrayLength: any;
+                if (this.arraySizeInput) {
+                    arrayLength = this.arraySizeInput.getAttribute('value');
+                }
+                if (+arrayLength > 2 && arrayLength < 51) {
+                    let radio: any = document.forms[0].elements.namedItem(
+                        'chooseAlgo'
+                    );
+                    const sortMethod = radio.value;
                     this.showInfo('Sorted');
                     this.emitEvent('start', { arrayLength, sortMethod });
                 } else {
@@ -40,11 +46,12 @@ export default class ViewMobile extends EventBus {
             this.testSpeedButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
-                const testArrayLength: number = +document.forms[0].elements
-                    .arraySizeTest.value;
-                // const testArrayLength: number = 30000;
+                let testArrayLength: any;
+                if (this.arraySizeTest) {
+                    testArrayLength = this.arraySizeTest.getAttribute('value');
+                }
                 setTimeout(() => {
-                    this.emitEvent('testSpeed', testArrayLength);
+                    this.emitEvent('testSpeed', +testArrayLength);
                 }, 10);
             });
         }
@@ -84,7 +91,6 @@ export default class ViewMobile extends EventBus {
     }
 
     showInfo(info: string, isAlert?: any) {
-        
         if (this.infoPanel) {
             this.infoPanel.innerHTML = info;
             if (isAlert) {

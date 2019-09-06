@@ -253,6 +253,11 @@ class SmartArray extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EventBus__ = __webpack_require__(0);
 
+// interface FormsProperty extends HTMLFormControlsCollection {
+//     arraySize: any;
+//     chooseAlgo: any;
+//     arraySizeTest: any;
+// }
 class View extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default */] {
     constructor() {
         super();
@@ -264,14 +269,21 @@ class View extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default */] {
         this.startButton = document.getElementById('start');
         this.visualizeButton = document.getElementById('visualize');
         this.testSpeedButton = document.getElementById('testspeed');
+        this.arraySizeInput = document.getElementById('arraySize');
+        this.arraySizeTest = document.getElementById('arraySizeTest');
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
-                const arrayLength = +document.forms[0].elements.arraySize.value;
-                // const arrayLength = 16;
-                if (arrayLength > 2 && arrayLength < 51) {
-                    const sortMethod = document.forms[0].elements.chooseAlgo.value;
-                    // const sortMethod = 'quickSort';
+                // const arrayLength = +document.forms[0].elements.arraySize.value;
+                let arrayLength;
+                if (this.arraySizeInput) {
+                    arrayLength = this.arraySizeInput.getAttribute('value');
+                }
+                if (+arrayLength > 2 && arrayLength < 51) {
+                    // const sortMethod =
+                    //     document.forms[0].elements.chooseAlgo.value;
+                    let radio = document.forms[0].elements.namedItem('chooseAlgo');
+                    const sortMethod = radio.value;
                     this.showInfo('Sorted');
                     this.emitEvent('start', { arrayLength, sortMethod });
                 }
@@ -291,11 +303,14 @@ class View extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default */] {
             this.testSpeedButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
-                const testArrayLength = +document.forms[0].elements
-                    .arraySizeTest.value;
-                // const testArrayLength: number = 30000;
+                let testArrayLength;
+                if (this.arraySizeTest) {
+                    testArrayLength = this.arraySizeTest.getAttribute('value');
+                }
+                // const testArrayLength: number = +document.forms[0].elements
+                //     .arraySizeTest.value;
                 setTimeout(() => {
-                    this.emitEvent('testSpeed', testArrayLength);
+                    this.emitEvent('testSpeed', +testArrayLength);
                 }, 10);
             });
         }
@@ -389,17 +404,23 @@ class ViewMobile extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default 
         this.visualizeButton = document.getElementById('visualize');
         this.testSpeedButton = document.getElementById('testspeed');
         this.infoPanel = document.querySelector('.info-panel');
+        this.arraySizeInput = document.getElementById('arraySize');
+        this.arraySizeTest = document.getElementById('arraySizeTest');
         console.log('MOBILE DETECTED');
         if (this.visualizeButton)
             this.visualizeButton.remove();
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
-                const arrayLength = +document.forms[0].elements.arraySize.value;
-                // const arrayLength = 16;
-                if (arrayLength > 2 && arrayLength < 51) {
-                    const sortMethod = document.forms[0].elements.chooseAlgo.value;
-                    // const sortMethod = 'quickSort';
+                let arrayLength;
+                if (this.arraySizeInput) {
+                    arrayLength = this.arraySizeInput.getAttribute('value');
+                }
+                if (+arrayLength > 2 && arrayLength < 51) {
+                    // const sortMethod =
+                    //     document.forms[0].elements.chooseAlgo.value;
+                    let radio = document.forms[0].elements.namedItem('chooseAlgo');
+                    const sortMethod = radio.value;
                     this.showInfo('Sorted');
                     this.emitEvent('start', { arrayLength, sortMethod });
                 }
@@ -419,11 +440,12 @@ class ViewMobile extends __WEBPACK_IMPORTED_MODULE_0__EventBus__["a" /* default 
             this.testSpeedButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
-                const testArrayLength = +document.forms[0].elements
-                    .arraySizeTest.value;
-                // const testArrayLength: number = 30000;
+                let testArrayLength;
+                if (this.arraySizeTest) {
+                    testArrayLength = this.arraySizeTest.getAttribute('value');
+                }
                 setTimeout(() => {
-                    this.emitEvent('testSpeed', testArrayLength);
+                    this.emitEvent('testSpeed', +testArrayLength);
                 }, 10);
             });
         }
