@@ -1,7 +1,7 @@
 module.exports = {
     entry: './ts/Init.ts',
     output: {
-        filename: './dist/app.js',
+        filename: './dist/app.js'
         // path: __dirname + "./dist"
         // library: 'myApp'
     },
@@ -9,9 +9,16 @@ module.exports = {
         extensions: ['.ts', '.js']
     },
     module: {
-        rules: [{ test: /\.ts$/, use: 'awesome-typescript-loader' }]
+        rules: [
+            {
+                test: /\.ts$/,
+                use: 'awesome-typescript-loader',
+                exclude: /node_modules/
+            }
+        ]
     },
     devServer: {
         port: 3000
-    }
+    },
+    devtool: 'inline-source-map'
 };
