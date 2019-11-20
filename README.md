@@ -1,4 +1,4 @@
-# SORTING ALGORITHMS
+# SORTING ALGORITHMS SPECIFICATIONS
 
 ## Introduction
 
@@ -9,4 +9,47 @@ The document is also written for anyone requiring a general understanding of the
 
 ## Mockup description
 ![GitHub Logo](/img/SortAlgo.jpg)
-Format: ![Alt Text](url)
+
+1.	Header: Choose a sorting algorithm. 
+It should be radio buttons with names of algorithms. Only one radio button in a group can be selected. Such names are needed: Insertion sort, Quick sort, Merge sort, Internal sort.
+2.	Header: Array size.
+This field is used to select the size of the base array for tests and start visualization after sorting.
+The main limitation for size is: size must be greater than 2 and less than 50.
+3.	Speed test.
+This field is used to test all algorithms with the same array. The recommended array size is 30000.
+4.	Info field.
+In this field we can see current status or errors.
+5.	Visualization field.
+This field is used for step by step visualization of current algorithm. It repeats sorting steps one by one. Exception: Internal sort could not be visualized.
+6.	Report field.
+It contains 4 strings for each test:
+-	Input array
+-	Sorting method
+-	Output array (sorting result)
+-	Render time
+and for speed test:
+-	tested array length
+-	Sorting method: Name, Render time (4 times, for each algorithm)
+
+## Brief instructions
+1.	Select a sorting algorithm.
+2.	Enter the size of the array.
+3.	Click the “Sort” button to start sorting.
+4.	After sorting, click the “Visualize the last sort” button to visualize.
+5.	Enter the size of the test algorithm.
+6.	Click the “Sort Algorithm Speed Test” button to test and compare algorithms.
+
+## Brief description of algorithms
+
+1.	Insertion sort:
+The elements of the input sequence are scanned one at a time, and each new incoming element is placed in a suitable place among the previously ordered elements.
+2.	Quick sort:
+The support element is selected, and the array is divided into 2 subarrays: smaller reference, equal and large reference. Then this algorithm is applied recursively to subarrays.
+3.	Merge sort:
+We split the array evenly until several small ones come out from one array — no more than one element in size. After splitting, a reverse merge follows, in which at one moment in time (or per loop), one element from each array is selected and compared with each other. The smallest (or largest) element is sent to the resulting array, the remaining element remains relevant for comparison with an element from another array in the next step.
+4.	Internal sort:
+It’s an internal implementation of the quick sort.
+
+
+### Link to Javascript implementation with tests
+https://dmytrosemenov.github.io/Algorithms/
