@@ -22,14 +22,14 @@ In this field we can see current status or errors.
 5.	**Visualization field.**<br>
 This field is used for step by step visualization of current algorithm. It repeats sorting steps one by one. Exception: Internal sort could not be visualized.
 6.	**Report field.**<br>
-6.1. Contains 4 strings for each test:
+6.1 Contains 4 strings for each test:
     * Input array
     * Sorting method
     * Output array (sorting result)
     * Render time<br>
-6.2. or for speed test:
-    * tested array length
-    * Sorting method: Name, Render time (4 times, for each algorithm)
+6.2 or for speed test:
+    - tested array length
+    - Sorting method: Name, Render time (4 times, for each algorithm)
 
 ## Brief instructions
 1.	Select a sorting algorithm.
