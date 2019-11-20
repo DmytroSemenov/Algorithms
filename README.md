@@ -26,7 +26,7 @@ This field is used for step by step visualization of current algorithm. It repea
     -   Input array
     -	Sorting method
     -	Output array (sorting result)
-    -	Render time
+    -	Render time<br>
   b) and for speed test:
     -	tested array length
     -	Sorting method: Name, Render time (4 times, for each algorithm)
@@ -42,11 +42,11 @@ This field is used for step by step visualization of current algorithm. It repea
 ## Brief description of algorithms
 
 **1.	Insertion sort:**<br>
-The elements of the input sequence are scanned one at a time, and each new incoming element is placed in a suitable place among the previously ordered elements.
+The elements of the input sequence are scanned one at a time, and each new incoming element is placed in a suitable place among the previously ordered elements.<br>
 **2.	Quick sort:**<br>
-The support element is selected, and the array is divided into 2 subarrays: smaller reference, equal and large reference. Then this algorithm is applied recursively to subarrays.
+The support element is selected, and the array is divided into 2 subarrays: smaller reference, equal and large reference. Then this algorithm is applied recursively to subarrays.<br>
 **3.	Merge sort:**<br>
-We split the array evenly until several small ones come out from one array — no more than one element in size. After splitting, a reverse merge follows, in which at one moment in time (or per loop), one element from each array is selected and compared with each other. The smallest (or largest) element is sent to the resulting array, the remaining element remains relevant for comparison with an element from another array in the next step.
+We split the array evenly until several small ones come out from one array — no more than one element in size. After splitting, a reverse merge follows, in which at one moment in time (or per loop), one element from each array is selected and compared with each other. The smallest (or largest) element is sent to the resulting array, the remaining element remains relevant for comparison with an element from another array in the next step.<br>
 **4.	Internal sort:**<br>
 It’s an internal implementation of the quick sort.
 
