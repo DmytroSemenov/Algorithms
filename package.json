@@ -4,6 +4,8 @@
   "description": "Sorting algorythms with TypeScript",
   "main": "app.js",
   "dependencies": {
+    "@types/node": "^13.1.1",
+    "@types/websql": "0.0.27",
     "chai": "^4.2.0"
   },
   "devDependencies": {

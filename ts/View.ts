@@ -4,7 +4,7 @@ import IView from './IView';
 export default class View extends EventBus implements IView {
     private divMarginLeft: number = 55;
     private divElements: HTMLDivElement[] = [];
-    private timerId: number | undefined = undefined;
+    private timerId: any | undefined = undefined;
     private domElement = document.querySelector('.main-box');
     private logsElement = document.querySelector('.logs');
     private startButton = document.getElementById('start');
@@ -18,14 +18,14 @@ export default class View extends EventBus implements IView {
         if (this.startButton) {
             this.startButton.addEventListener('click', () => {
                 clearInterval(this.timerId);
-                // const arrayLength = +document.forms[0].elements.arraySize.value;
-                let arrayL: any = document.forms[0].elements.namedItem(
+                // const arrayLength = +document.forms[1].elements.arraySize.value;
+                let arrayL: any = document.forms[1].elements.namedItem(
                     'arraySize'
                 );
                 let arrayLength = +arrayL.value;
 
                 if (arrayLength > 2 && arrayLength < 51) {
-                    let radio: any = document.forms[0].elements.namedItem(
+                    let radio: any = document.forms[1].elements.namedItem(
                         'chooseAlgo'
                     );
                     const sortMethod = radio.value;
@@ -50,7 +50,7 @@ export default class View extends EventBus implements IView {
                 clearInterval(this.timerId);
                 this.showInfo('Speed test in progress...', 'alert');
 
-                let arrayLtest: any = document.forms[0].elements.namedItem(
+                let arrayLtest: any = document.forms[1].elements.namedItem(
                     'arraySizeTest'
                 );
                 let testArrayLength = +arrayLtest.value;
