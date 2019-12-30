@@ -38,23 +38,6 @@ export default class Login extends EventBus {
         this.loginUser();
     }
 
-    addUser(username: string, password: string, isAdmin: string, isGuest: string) {
-        this.db.transaction(transaction => {
-            const sql = 'INSERT INTO users (username, password, timestamp, isAdmin, isGuest) VALUES(?,?,?,?,?)';
-            transaction.executeSql(
-                sql,
-                [username, password, new Date(), isAdmin, isGuest],
-                () => {
-                    this.showInfo('New item has added successfully');
-                },
-                (transaction: SQLTransaction, error: SQLError) => {
-                    this.showInfo(`<ADDUSER> ${error.message}`);
-                    return false;
-                }
-            );
-        });
-    }
-
     loginUser() {
         let username: string;
         let password: string;
@@ -82,7 +65,7 @@ export default class Login extends EventBus {
                                     if (this.adminContainer) this.adminContainer.hidden = true;
                                     this.isAdminLogged = false;
                                 }
-                            } else this.showInfo('User is present or password is incorrect');
+                            } else this.showInfo('The User is present and password is not correct');
                         }
                     } else {
                         if (password === '') {
@@ -105,6 +88,23 @@ export default class Login extends EventBus {
                 },
                 (transaction: SQLTransaction, error: SQLError) => {
                     this.showInfo(`<CHECK> ${error.message}`);
+                    return false;
+                }
+            );
+        });
+    }
+
+    addUser(username: string, password: string, isAdmin: string, isGuest: string) {
+        this.db.transaction(transaction => {
+            const sql = 'INSERT INTO users (username, password, timestamp, isAdmin, isGuest) VALUES(?,?,?,?,?)';
+            transaction.executeSql(
+                sql,
+                [username, password, new Date(), isAdmin, isGuest],
+                () => {
+                    this.showInfo('New item has added successfully');
+                },
+                (transaction: SQLTransaction, error: SQLError) => {
+                    this.showInfo(`<ADDUSER> ${error.message}`);
                     return false;
                 }
             );
@@ -134,10 +134,16 @@ export default class Login extends EventBus {
     }
 
     onShowUsersList() {
-        if (this.table) this.table.innerHTML = '';
         let fieldsToShow = 'id, username, timestamp';
-        if (this.isAdminLogged) fieldsToShow = '*';
-        if (this.isGuestLogged) fieldsToShow = 'id, username';
+        if (this.table) {
+            this.table.innerHTML = '';
+        }
+        if (this.isAdminLogged) {
+            fieldsToShow = '*';
+        }
+        if (this.isGuestLogged) {
+            fieldsToShow = 'id, username';
+        }
 
         this.db.transaction(transaction => {
             const sql = `SELECT ${fieldsToShow} FROM users ORDER BY id`;
@@ -145,19 +151,22 @@ export default class Login extends EventBus {
                 sql,
                 undefined,
                 (transaction: SQLTransaction, result: SQLResultSet) => {
+                    const INDEX_OF_ROW = 0;
                     if (result.rows.length) {
-                        let tableHTMLText: string = `<tr>`;
-                        for (const key in result.rows.item(0)) {
-                            tableHTMLText += `<td>${key}</td>`;
+                        let tableHTMLText: string = '';
+
+                        tableHTMLText += `<tr>`;
+                        for (const COLUMN_NAME in result.rows.item(INDEX_OF_ROW)) {
+                            tableHTMLText += `<td>${COLUMN_NAME}</td>`;
                         }
                         tableHTMLText += `</tr>`;
 
-                        for (let i = 0; i < result.rows.length; i++) {
-                            let row = result.rows.item(i);
+                        for (let userNumber = 0; userNumber < result.rows.length; userNumber++) {
+                            let user = result.rows.item(userNumber);
 
                             tableHTMLText += `<tr>`;
-                            for (const key in result.rows.item(i)) {
-                                tableHTMLText += `<td>${row[key]}</td>`;
+                            for (const COLUMN_NAME in user) {
+                                tableHTMLText += `<td>${user[COLUMN_NAME]}</td>`;
                             }
                             tableHTMLText += `</tr>`;
                         }
