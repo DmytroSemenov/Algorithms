@@ -48,7 +48,7 @@ export default class Login extends EventBus {
                     this.showInfo('New item has added successfully');
                 },
                 (transaction: SQLTransaction, error: SQLError) => {
-                    this.showInfo(`<ADD> ${error.message}`);
+                    this.showInfo(`<ADDUSER> ${error.message}`);
                     return false;
                 }
             );
@@ -58,7 +58,6 @@ export default class Login extends EventBus {
     loginUser() {
         let username: string;
         let password: string;
-
         if (this.usernameField) username = this.usernameField.value;
         if (this.passwordField) password = this.passwordField.value;
 
@@ -73,8 +72,8 @@ export default class Login extends EventBus {
                             let user = result.rows.item(i);
                             if (user.password === password) {
                                 this.isGuestLogged = password === '';
-                                this.updateUserTime();
-                                this.emitEvent('logged', {username});
+                                this.updateLoginTime();
+                                this.emitEvent('logged', { username });
                                 if (user.isAdmin === 'true') {
                                     if (this.adminContainer) this.adminContainer.hidden = false;
                                     this.isAdminLogged = true;
@@ -101,7 +100,7 @@ export default class Login extends EventBus {
                         }
 
                         this.addUser(username, password, this.isAdmin.toString(), `${password === ''}`);
-                        this.emitEvent('logged', {username});
+                        this.emitEvent('logged', { username });
                     }
                 },
                 (transaction: SQLTransaction, error: SQLError) => {
@@ -112,9 +111,12 @@ export default class Login extends EventBus {
         });
     }
 
-    updateUserTime() {
+    updateLoginTime() {
         let username: string;
-        if (this.usernameField) username = this.usernameField.value;
+        if (this.usernameField) {
+            username = this.usernameField.value;
+        }
+
         this.db.transaction(transaction => {
             const sql = `UPDATE users SET timestamp=? WHERE username=?`;
             transaction.executeSql(
@@ -142,27 +144,25 @@ export default class Login extends EventBus {
             transaction.executeSql(
                 sql,
                 undefined,
-                (transaction, result) => {
+                (transaction: SQLTransaction, result: SQLResultSet) => {
                     if (result.rows.length) {
-                        let tableText = `<tr>`;
+                        let tableHTMLText: string = `<tr>`;
                         for (const key in result.rows.item(0)) {
-                            tableText += `<td>${key}</td>`;
+                            tableHTMLText += `<td>${key}</td>`;
                         }
-
-                        tableText += `</tr>`;
+                        tableHTMLText += `</tr>`;
 
                         for (let i = 0; i < result.rows.length; i++) {
                             let row = result.rows.item(i);
 
-                            tableText += `<tr>`;
+                            tableHTMLText += `<tr>`;
                             for (const key in result.rows.item(i)) {
-                                tableText += `<td>${row[key]}</td>`;
+                                tableHTMLText += `<td>${row[key]}</td>`;
                             }
-
-                            tableText += `</tr>`;
+                            tableHTMLText += `</tr>`;
                         }
 
-                        if (this.table) this.table.innerHTML = tableText;
+                        if (this.table) this.table.innerHTML = tableHTMLText;
                     } else if (this.table) {
                         this.table.innerHTML = `<tr><td colspan="3" align="center">No Items Found</td></tr>`;
                     }
