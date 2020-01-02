@@ -7,6 +7,7 @@ export default class Login extends EventBus {
     private removeBtn: HTMLElement | null = document.getElementById('remove');
     private loginBtn: HTMLElement | null = document.getElementById('login_btn');
     private listBtn: HTMLElement | null = document.getElementById('show');
+    private deleteBtn: HTMLElement | null = document.getElementById('delete');
     private usernameField: any = document.getElementById('username');
     private passwordField: any = document.getElementById('password');
     private isAdminField: any = document.getElementById('admin');
@@ -25,6 +26,7 @@ export default class Login extends EventBus {
         if (this.removeBtn) this.removeBtn.addEventListener('click', th.onDeleteTable.bind(th));
         if (this.loginBtn) this.loginBtn.addEventListener('click', th.onLogin.bind(th));
         if (this.listBtn) this.listBtn.addEventListener('click', th.onShowUsersList.bind(th));
+        if (this.deleteBtn) this.deleteBtn.addEventListener('click', th.onDeleteUser.bind(th));
         if (this.isAdminField) this.isAdminField.checked = false;
         if (this.adminContainer) this.adminContainer.hidden = true;
         this.showInfo('Please, login first');
@@ -58,7 +60,9 @@ export default class Login extends EventBus {
                                 this.updateLoginTime();
                                 this.emitEvent('logged', { username });
                                 if (user.isAdmin === 'true') {
-                                    if (this.adminContainer) this.adminContainer.hidden = false;
+                                    if (this.adminContainer) {
+                                        this.adminContainer.hidden = false;
+                                    }
                                     this.isAdminLogged = true;
                                 } else {
                                     if (this.isAdminField) this.isAdminField.checked = false;
@@ -187,6 +191,35 @@ export default class Login extends EventBus {
     showInfo(text: string) {
         console.log(text);
         if (this.messagesField) this.messagesField.innerHTML = text;
+    }
+
+    onDeleteUser() {
+        if (!this.isAdminLogged) {
+            this.showInfo('You can not delete users');
+            return;
+        }
+        if (this.usernameField && !this.usernameField.value) {
+            this.showInfo('Please, fill login field');
+            return;
+        }
+
+        let userName = this.usernameField.value;
+        if (!confirm(`Are You sure to delete user ${userName}?`)) return;
+
+        this.db.transaction(transaction => {
+            const sql = 'DELETE FROM users WHERE username=?';
+            transaction.executeSql(
+                sql,
+                [userName],
+                () => {
+                    this.showInfo(`User ${userName} successfully deleted`);
+                },
+                () => {
+                    this.showInfo('User can not be deleted');
+                    return false;
+                }
+            );
+        });
     }
 
     onCreateTable() {
