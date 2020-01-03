@@ -7,6 +7,11 @@ Describes the functionality in the graphical user interface.
 This application can show the speed of algorithms and can compare it.
 
 ## Mockup description
+![GitHub Logo](/img/login.jpg)
+
+0. **Login: The first login decription.**<br>
+When the database is created the first time, **login: admin, password: admin** to login as an administrator
+
 ![GitHub Logo](/img/SortAlgo.jpg)
 
 1.	**Header: Choose a sorting algorithm.**<br> 
